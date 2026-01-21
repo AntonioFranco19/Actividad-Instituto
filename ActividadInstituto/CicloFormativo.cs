@@ -1,9 +1,9 @@
 ﻿namespace ActividadInstituto;
 
-public class CicloFormativo(string id, string nombre, Turnos turno)
+public class CicloFormativo(string? id, string? nombre, Turnos turno)
 {
     private readonly List<Modulo> _asignaturas = [];
-    public string IdModulo { get; } = id;
+    public string? IdModulo { get; } = id;
     public string Nombre { get; } = nombre;
     public Turnos Turno { get; } = turno;
 
@@ -23,5 +23,10 @@ public class CicloFormativo(string id, string nombre, Turnos turno)
         {
             Console.WriteLine(asignatura);
         }
+    }
+
+    public override string ToString()
+    {
+        return $"| {this.Nombre} | {IdModulo} | {Turno} |";
     }
 }

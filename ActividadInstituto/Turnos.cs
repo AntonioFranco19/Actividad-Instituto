@@ -2,5 +2,5 @@
 
 public enum Turnos
 {
-    Matutino, Vespertino, Nocturno
+    Matutino, Vespertino, Nocturno, SinAsignar
 }
