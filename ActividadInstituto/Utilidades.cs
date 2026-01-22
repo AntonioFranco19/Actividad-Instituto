@@ -24,11 +24,24 @@ public static class Utilidades
 
         return entrada;
     }
+    
+    public static int LeerInt(string message)
+    {
+        int num;
+        bool correcto;
+        do
+        {
+            correcto = int.TryParse(LeerCadena(message, true), out num);
+            if (!correcto) Console.WriteLine("No has introducido un número.");
+            
+        } while (!correcto);
+
+        return num;
+    }
 
     public static Turnos SeleccionarTurno(string message)
     {
-        string? input = null;
-        bool salir = false;
+        string? input;
         Turnos salida = Turnos.SinAsignar;
         Console.WriteLine(message);
         do
@@ -39,29 +52,36 @@ public static class Utilidades
             Console.WriteLine("  - Nocturno (N)");
             input = Console.ReadLine();
 
-            switch (input?.ToLower())
+            if (string.IsNullOrEmpty(input))
             {
-                case "matutino":
-                case "m":
-                    salir = true;
-                    salida = Turnos.Matutino;
-                    break;
-                case "vespertino":
-                case "v":
-                    salir = true;
-                    salida = Turnos.Vespertino;
-                    break;
-                case "nocturno":
-                case "n":
-                    salir = true;
-                    salida = Turnos.Nocturno;
-                    break;
-                default:
-                    Console.WriteLine("Comando no válido.");
-                    break;
+                Console.WriteLine("No has introducido nada. Este campo es obligatorio.");
             }
-        } while (!salir && !string.IsNullOrEmpty(input));
+            else
+            {
+                switch (input.ToLower())
+                {
+                    case "matutino":
+                    case "m":
 
+                        salida = Turnos.Matutino;
+                        break;
+                    case "vespertino":
+                    case "v":
+
+                        salida = Turnos.Vespertino;
+                        break;
+                    case "nocturno":
+                    case "n":
+                        salida = Turnos.Nocturno;
+                        break;
+                    default:
+                        Console.WriteLine("Comando no válido.");
+                        break;
+                }
+            }
+            
+        } while (salida == Turnos.SinAsignar) ;
+        
         return salida;
     }
 
@@ -70,6 +90,13 @@ public static class Utilidades
         CicloFormativo ciclo = new CicloFormativo(LeerCadena("Introdue ID del ciclo.....", true),
             LeerCadena("Introduce nombre del ciclo.....", true), SeleccionarTurno("Introduce turno....."));
         return ciclo;
+    }
+
+    public static Alumno CrearAlumno(CicloFormativo ciclo)
+    {
+        Alumno alumno = new Alumno(LeerCadena("NIF:", true), LeerCadena("NOMBRE:", true),
+            LeerCadena("TELEFONO:", false), LeerCadena("DIRECCIÓN:", false), LeerCadena("EMAIL:", false), ciclo);
+        return alumno;
     }
     
 }

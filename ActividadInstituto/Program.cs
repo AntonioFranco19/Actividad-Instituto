@@ -5,7 +5,6 @@ namespace ActividadInstituto
     {
         public static void Main(string[] args)
         {
-            int idModulo = 1;
             Centro europa = new Centro(1, "IES Europa", "dirección", "telefono");
             CicloFormativo? cicloSeleccionado = null;
             
@@ -38,6 +37,12 @@ namespace ActividadInstituto
             do
             {
                 Menu();
+                if (cicloSeleccionado == null) Console.WriteLine("NINGÚN CICLO SELECCIONADO");
+                else
+                {
+                    Console.WriteLine($"CICLO SELECCIONADO = {cicloSeleccionado.Nombre}");
+                }
+                
                 string? input = Console.ReadLine();
 
                 switch (input)
@@ -48,56 +53,40 @@ namespace ActividadInstituto
                         
                         break;
                     case "2":
-                        try
-                        {
-                            
                             europa.RecorrerCiclos();
-                            Console.WriteLine(new string('=', 50));
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
                         
                         break;
                     case "3":
-                        try
-                        {
-                            
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                        break;
+                            europa.RecorrerCiclos();
+                            cicloSeleccionado = europa.SeleccionarCiclo();
+                            if (cicloSeleccionado == null)
+                            {
+                                Console.WriteLine("No se ha podido seleccionar ciclo formativo.");
+                                break;
+                            }
+                            Console.WriteLine($"Se ha seleccionado el ciclo: {cicloSeleccionado.Nombre}");
+
+                            break;
                     case "4":
-                        try
+                        if (cicloSeleccionado == null) Console.WriteLine("\nPrimero debes seleccionar un ciclo.");
+                        else
                         {
-                            
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
+                            cicloSeleccionado.VerDetalles();
                         }
                         break;
                     case "5":
-                        try
+                        if (cicloSeleccionado == null) Console.WriteLine("\nPrimero debes seleccionar un ciclo.");
+                        else
                         {
-                            
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
+                            cicloSeleccionado.AgregarModulo();
                         }
                         break;
                     case "6":
-                        try
+                        if (cicloSeleccionado == null) Console.WriteLine("\nPrimero debes seleccionar un ciclo.");
+                        else
                         {
-                            
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
+                           Alumno al = Utilidades.CrearAlumno(cicloSeleccionado);
+                           europa.AñadirAlumno(al);
                         }
                         break;
                     case "7":
@@ -122,13 +111,15 @@ namespace ActividadInstituto
                         break;
                     case "9":
                         repetir = false;
+                        Console.Clear();
+                        Console.WriteLine("Gracias por usar el programa!");
                         break;
                     default:
                         Console.WriteLine("Comando no permitido.");
                         break;
                 }
 
-                PausarPrograma();
+                
             } while (repetir);
         }
 
@@ -145,14 +136,15 @@ namespace ActividadInstituto
             Console.WriteLine("| 8. Ver resumen del centro.                 |");
             Console.WriteLine("| 9. Salir del programa.                     |");
             Console.WriteLine("==============================================");
+            
         }
 
-        public static void PausarPrograma()
+        /*public static void PausarPrograma()
         {
             Console.WriteLine("Pulsa una tecla para continuar.");
             Console.ReadKey();
             Console.Clear();
-        }
+        }*/
 
         public static Alumno MatricularAlumno(CicloFormativo ciclo)
         {
@@ -168,13 +160,7 @@ namespace ActividadInstituto
             return al;
         }
 
-        public static void ListarAlumnos(List<Alumno> lista)
-        {
-            foreach (Alumno alumno in lista)
-            {
-                Console.WriteLine(alumno);
-            }
-        }
+        
         
     }
 }
