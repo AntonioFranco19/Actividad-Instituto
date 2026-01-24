@@ -21,6 +21,6 @@ public class Alumno
 
     public override string ToString()
     {
-        return $" Nombre: {this.Nombre} NIF: {Nif}, Telefono {Telefono}, Dirección: {Direccion}, Email: {Email}, Ciclo Matriculado: {CicloMatriculado.Nombre}.";
+        return $"| {Nombre, -20} | {Nif, -10} | {Telefono, -10} | {Direccion, -20} | {Email, -20} | {CicloMatriculado.Nombre, -20} |";
     }
 }

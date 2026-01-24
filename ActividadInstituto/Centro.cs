@@ -43,12 +43,13 @@ public class Centro
 
     public CicloFormativo? SeleccionarCiclo()
     {
-        string? idCiclo = Utilidades.LeerCadena("INTRODUCE ID DEL CICLO A SELECCIONAR: ", true);
         if (_listaCiclos.Count() == 0)
         {
             Console.WriteLine("El centro no tiene ciclos formativos aún!");
             return null;
         }
+        RecorrerCiclos();
+        string? idCiclo = Utilidades.LeerCadena("INTRODUCE ID DEL CICLO A SELECCIONAR: ", true);
         
         foreach (var ciclo in _listaCiclos)
         {
@@ -57,16 +58,56 @@ public class Centro
                 return ciclo;
             }
         }
-
+        Console.WriteLine("No se ha encontrado el ciclo seleccionado.");
         return null;
     }
     
     public void ListarAlumnos()
     {
+        Console.WriteLine(new string('=', 119));
+        Console.WriteLine("| L I S T A  A L U M N O S "+ new string(' ', 91)+"|");
+        Console.WriteLine(new string('=', 119));
+        Console.WriteLine($"| {"Nombre", -20} | {"Nif", -10} | {"Telefono", -10} | {"Direccion", -20} | {"Email", -20} | {"Matriculado en", -20} |");
         foreach (Alumno alumno in _listaAlumno)
         {
             Console.WriteLine(alumno);
         }
+        Console.WriteLine(new string('=', 119));
     }
-    
+
+    public void Estadísticas()
+    {
+        Console.WriteLine(" ");
+        Console.WriteLine("==================================================");
+        Console.WriteLine("|           ESTADÍSTICAS DEL CENTRO              |");
+        Console.WriteLine("==================================================");
+        Console.WriteLine($" > Centro:     {Nombre}");
+        Console.WriteLine($" > ID:         {Id}");
+        Console.WriteLine($" > Telefono:   {Telefono}");
+        Console.WriteLine($" > Dirección:  {Direccion}");
+        Console.WriteLine($" > Ciclos:     {_listaCiclos.Count}");
+        Console.WriteLine($" > Alumnos:    {_listaAlumno.Count}");
+        Console.WriteLine("--------------------------------------------------");
+        Console.WriteLine($"| {"CICLO",-23} | {"ID",-10} | {"ALUMNOS",6} |");
+        Console.WriteLine("--------------------------------------------------");
+
+        foreach (var ciclo in _listaCiclos)
+        {
+            int countAl = 0;
+            foreach (var al in _listaAlumno)
+            {
+                if (al.CicloMatriculado.Nombre == ciclo.Nombre)
+                {
+                    countAl++;
+                }
+            }
+
+            Console.WriteLine($"| {ciclo.Nombre,-23} | {ciclo.IdModulo,-10} | {countAl,7} |");
+        }
+
+        Console.WriteLine("==================================================");
+        Console.WriteLine(" ");
+
+    }
+
 }

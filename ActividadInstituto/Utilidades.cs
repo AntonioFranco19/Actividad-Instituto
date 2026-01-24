@@ -89,6 +89,7 @@ public static class Utilidades
     {
         CicloFormativo ciclo = new CicloFormativo(LeerCadena("Introdue ID del ciclo.....", true),
             LeerCadena("Introduce nombre del ciclo.....", true), SeleccionarTurno("Introduce turno....."));
+        Console.WriteLine("\nSe ha creado el ciclo formativo.");
         return ciclo;
     }
 
@@ -96,6 +97,7 @@ public static class Utilidades
     {
         Alumno alumno = new Alumno(LeerCadena("NIF:", true), LeerCadena("NOMBRE:", true),
             LeerCadena("TELEFONO:", false), LeerCadena("DIRECCIÓN:", false), LeerCadena("EMAIL:", false), ciclo);
+        Console.WriteLine("\nSe ha creado el alumno.");
         return alumno;
     }
     

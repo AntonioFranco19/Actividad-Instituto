@@ -30,19 +30,20 @@ namespace ActividadInstituto
             lenguajeDeMarcas.AgregarProfesor(diego);
             */
             
-            List<Alumno> alumnos = new List<Alumno>();
+            //List<Alumno> alumnos = new List<Alumno>();
 
             bool repetir = true;
+            
+            Bienvenida();
 
             do
             {
                 Menu();
-                if (cicloSeleccionado == null) Console.WriteLine("NINGÚN CICLO SELECCIONADO");
-                else
-                {
-                    Console.WriteLine($"CICLO SELECCIONADO = {cicloSeleccionado.Nombre}");
-                }
+                Console.WriteLine(cicloSeleccionado == null ? $"\t| {"NINGÚN CICLO SELECCIONADO", -42} |" : $"\t| CICLO SELECCIONADO : {cicloSeleccionado.Nombre, 21} |");
+                Console.WriteLine("\t==============================================");
+                Console.WriteLine(" ");
                 
+                Console.Write(" > ");
                 string? input = Console.ReadLine();
 
                 switch (input)
@@ -57,7 +58,6 @@ namespace ActividadInstituto
                         
                         break;
                     case "3":
-                            europa.RecorrerCiclos();
                             cicloSeleccionado = europa.SeleccionarCiclo();
                             if (cicloSeleccionado == null)
                             {
@@ -90,29 +90,19 @@ namespace ActividadInstituto
                         }
                         break;
                     case "7":
-                        try
+                        if (cicloSeleccionado == null) Console.WriteLine("\nPrimero debes seleccionar un ciclo.");
+                        else
                         {
-                            
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
+                            europa.ListarAlumnos();
                         }
                         break;
                     case "8":
-                        try
-                        {
-                            
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
+                        europa.Estadísticas();
                         break;
                     case "9":
                         repetir = false;
                         Console.Clear();
-                        Console.WriteLine("Gracias por usar el programa!");
+                        Despedida();
                         break;
                     default:
                         Console.WriteLine("Comando no permitido.");
@@ -125,42 +115,45 @@ namespace ActividadInstituto
 
         public static void Menu()
         {
-            Console.WriteLine("================ M  E  N  Ú ==================");
-            Console.WriteLine("| 1. Crear ciclo formativo.                  |");
-            Console.WriteLine("| 2. Listar ciclos formativos.               |");
-            Console.WriteLine("| 3. Seleccionar ciclo formativo.            |");
-            Console.WriteLine("| 4. Mostrar detalle del ciclo seleccionado. |");
-            Console.WriteLine("| 5. Agregar módulo.                         |");
-            Console.WriteLine("| 6. Matricular alumno.                      |");
-            Console.WriteLine("| 7. Listar Alumnos.                         |");
-            Console.WriteLine("| 8. Ver resumen del centro.                 |");
-            Console.WriteLine("| 9. Salir del programa.                     |");
-            Console.WriteLine("==============================================");
-            
+            Console.WriteLine(" ");
+            Console.WriteLine("\t================ M  E  N  Ú ==================");
+            Console.WriteLine("\t| 1. Crear ciclo formativo.                  |");
+            Console.WriteLine("\t| 2. Listar ciclos formativos.               |");
+            Console.WriteLine("\t| 3. Seleccionar ciclo formativo.            |");
+            Console.WriteLine("\t| 4. Mostrar detalle del ciclo seleccionado. |");
+            Console.WriteLine("\t| 5. Agregar módulo.                         |");
+            Console.WriteLine("\t| 6. Matricular alumno.                      |");
+            Console.WriteLine("\t| 7. Listar Alumnos.                         |");
+            Console.WriteLine("\t| 8. Ver resumen del centro.                 |");
+            Console.WriteLine("\t| 9. Salir del programa.                     |");
+            Console.WriteLine("\t==============================================");
         }
 
-        /*public static void PausarPrograma()
+        public static void Bienvenida()
         {
-            Console.WriteLine("Pulsa una tecla para continuar.");
-            Console.ReadKey();
-            Console.Clear();
-        }*/
-
-        public static Alumno MatricularAlumno(CicloFormativo ciclo)
-        {
-            var nombre = Utilidades.LeerCadena("Ingrese nombre del alumno.", true);
-            var nif = Utilidades.LeerCadena("Ingrese NIF:", true);
-            var tel = Utilidades.LeerCadena("Ingrese telefono:", true);
-            var direccion = Utilidades.LeerCadena("Ingrese dirección:", true);
-            var email = Utilidades.LeerCadena("Ingrese email:", true);
-
-            Alumno al = new Alumno(nif, nombre, tel, direccion, email, ciclo);
-            
-            Console.WriteLine("Se ha creado el alumno.");
-            return al;
+            Console.WriteLine(" ");
+            Console.WriteLine("\t+==========================================+");
+            Console.WriteLine("\t|                                          |");
+            Console.WriteLine("\t|     BIENVENIDO A GESTIÓN ACADÉMICA       |");
+            Console.WriteLine("\t|              Hecho por                   |");
+            Console.WriteLine("\t|        Antonio Franco Cegarra            |");
+            Console.WriteLine("\t|                                          |");
+            Console.WriteLine("\t+==========================================+");
+            Console.WriteLine(" ");
         }
 
-        
+        public static void Despedida()
+        {
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine("\t+==========================================+");
+            Console.WriteLine("\t|                                          |");
+            Console.WriteLine("\t|    ¡GRACIAS POR USAR GESTIÓN ACADÉMICA!  |");
+            Console.WriteLine("\t|                                          |");
+            Console.WriteLine("\t+==========================================+");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+        }
         
     }
 }
